@@ -1,4 +1,0 @@
-client/*
-!client/dist
-
-**/node_modules

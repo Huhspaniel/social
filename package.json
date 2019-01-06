@@ -24,8 +24,12 @@
   },
   "homepage": "https://github.com/Huhspaniel/social#readme",
   "dependencies": {
+    "bcrypt": "^3.0.3",
     "express": "^4.16.4",
-    "if-env": "^1.0.4"
+    "if-env": "^1.0.4",
+    "pg": "^7.7.1",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.42.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.9",

@@ -1,0 +1,8 @@
+{
+    "dialect": "postgres",
+    "define": {
+        "underscored": true,
+        "underscoredAll": true,
+        "freezeTableName": true
+    }
+}
