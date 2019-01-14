@@ -5,7 +5,7 @@ module.exports = function (sequelize, { STRING }) {
         email: {
             type: STRING,
             trim: true,
-            required: true,
+            allowNull: false,
             unique: true,
             validator: {
                 isEmail: {
@@ -15,7 +15,7 @@ module.exports = function (sequelize, { STRING }) {
         },
         password: {
             type: STRING,
-            required: true,
+            allowNull: false,
             validator: {
                 is: {
                     args: /(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z]).*/,
@@ -29,7 +29,7 @@ module.exports = function (sequelize, { STRING }) {
         },
         username: {
             type: STRING,
-            required: true,
+            allowNull: false,
             unique: true,
             validator: {
                 is: {
@@ -41,12 +41,12 @@ module.exports = function (sequelize, { STRING }) {
         firstname: {
             type: STRING,
             trim: true,
-            required: true
+            allowNull: false
         },
         lastname: {
             type: STRING,
             trim: true,
-            required: true
+            allowNull: false
         }
     }, {
         getterMethods: {

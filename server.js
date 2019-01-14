@@ -8,10 +8,13 @@ const db = require('./db');
 if (PROD) {
     app.use(express.static(path.join(__dirname, 'client/dist')));
 }
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/dist/index.html'));
-});
+app.use(express.json());
+require('./routes/api-routes')(app);
+if (PROD) {
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'client/dist/index.html'));
+    });
+}
 
 db.sync().then(function(val) {
     app.listen(PORT, function startServer() {
