@@ -1,20 +1,7 @@
-const PROD = process.env.NODE_ENV === 'production';
-if (!PROD) require('./.env.js');
-const express = require('express');
-const path = require('path');
-const app = express();
+if (process.env.NODE_ENV !== 'production') require('./.env.js');
 const PORT = process.env.PORT || 8080;
 const db = require('./db');
-if (PROD) {
-    app.use(express.static(path.join(__dirname, 'client/dist')));
-}
-app.use(express.json());
-require('./routes/api-routes')(app);
-if (PROD) {
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, 'client/dist/index.html'));
-    });
-}
+const app = require('./app.js');
 
 db.sync().then(function(val) {
     app.listen(PORT, function startServer() {
