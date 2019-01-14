@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 
 module.exports = function (sequelize, { STRING }) {
-    sequelize.define('users', {
+    return sequelize.define('users', {
         email: {
             type: STRING,
             trim: true,

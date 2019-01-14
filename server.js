@@ -1,8 +1,8 @@
-require('./.env.js');
+const PROD = process.env.NODE_ENV === 'production';
+if (!PROD) require('./.env.js');
 const express = require('express');
 const path = require('path');
 const app = express();
-const PROD = process.env.NODE_ENV === 'production'
 const PORT = process.env.PORT || 8080;
 const db = require('./db');
 if (PROD) {
