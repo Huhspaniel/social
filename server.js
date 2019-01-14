@@ -1,3 +1,4 @@
+require('dotenv').config();
 const PORT = process.env.PORT || 8080;
 const db = require('./db');
 const app = require('./app.js');
