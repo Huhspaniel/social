@@ -1,0 +1,59 @@
+:host(app-root) {
+    background: #effafa;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    min-height: 100vh;
+}
+
+header {
+    width: 100%;
+    color: white;
+    background-color: #004f52;
+    box-shadow: 0 0 5px black;
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+nav {
+    display: flex;
+    align-items: center;
+    font-size: 32px;
+    a {
+        cursor: pointer;
+        margin: 20px;
+        &:hover {
+            // background-color: lighten(#004f52, 5%);
+            text-shadow: 0 0 3px white;
+        }
+    }
+}
+.login-signup {
+    justify-self: right;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 20px 10px;
+    button {
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        color: #00b4ba;
+        padding: 10px;
+        box-sizing: border-box;
+        width: 100px;
+        margin: 0 10px;
+        border-radius: 7px;
+        border: 2px solid #00b4ba;
+        background-color: #effafa;
+        &:hover {
+            opacity: .95;
+            box-shadow: 0 0 3px white;
+        }
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 5px white;
+        }
+    }
+}
