@@ -1,4 +1,3 @@
-if (process.env.NODE_ENV !== 'production') require('./.env.js');
 const PORT = process.env.PORT || 8080;
 const db = require('./db');
 const app = require('./app.js');
