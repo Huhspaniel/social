@@ -23,7 +23,7 @@ module.exports = function (app) {
     app.route('/api/users')
         .get(async (req, res) => {
             try {
-                const users = await db.models.users.find({});
+                const users = await db.models.users.findAll({});
 
                 res.json(users);
             } catch (err) {

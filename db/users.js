@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 module.exports = function (sequelize, { STRING }) {
     return sequelize.define('users', {
         email: {
-            type: STRING,
+            type: 'citext',
             trim: true,
             allowNull: false,
             unique: true,
@@ -28,7 +28,7 @@ module.exports = function (sequelize, { STRING }) {
             }
         },
         username: {
-            type: STRING,
+            type: 'citext',
             allowNull: false,
             unique: true,
             validator: {
