@@ -7,7 +7,7 @@ module.exports = function (sequelize, { STRING }) {
             trim: true,
             allowNull: false,
             unique: true,
-            validator: {
+            validate: {
                 isEmail: {
                     msg: 'Email is invalid'
                 }
@@ -16,7 +16,7 @@ module.exports = function (sequelize, { STRING }) {
         password: {
             type: STRING,
             allowNull: false,
-            validator: {
+            validate: {
                 is: {
                     args: /(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z]).*/,
                     msg: 'Password must contain at least one lowercase letter, one uppercase letter, and one number'
@@ -31,7 +31,7 @@ module.exports = function (sequelize, { STRING }) {
             type: 'citext',
             allowNull: false,
             unique: true,
-            validator: {
+            validate: {
                 is: {
                     args: /^[a-z0-9_]*$/,
                     msg: 'Username can only contain letters, numbers, and _'
