@@ -8,18 +8,35 @@ const upvotes = db.define('upvotes', {});
 const downvotes = db.define('downvotes', {});
 
 // set table associations
-users.hasMany(upvotes, { foreignKey: 'user_id' });
-users.hasMany(downvotes, { foreignKey: 'user_id' });
-users.hasMany(posts, { foreignKey: 'user_id' });
+function oneToMany(associations) {
+    associations.forEach(({ parent, children, foreignKey }) => {
+        foreignKey = {
+            name: foreignKey,
+            allowNull: false
+        }
+        children.forEach((child => {
+            parent.hasMany(child, { foreignKey });
+            child.belongsTo(parent, { foreignKey });
+        }))
+    })
+}
 
-posts.belongsTo(users, { foreignKey: 'user_id' });
-posts.hasMany(upvotes, { foreignKey: 'post_id' });
-posts.hasMany(downvotes, { foreignKey: 'post_id' });
-
-upvotes.belongsTo(users, { foreignKey: 'user_id' });
-upvotes.belongsTo(posts, { foreignKey: 'post_id' });
-downvotes.belongsTo(users, { foreignKey: 'user_id' });
-downvotes.belongsTo(posts, { foreignKey: 'post_id' });
+oneToMany([{
+    parent: users,
+    children: [
+        upvotes,
+        downvotes,
+        posts
+    ],
+    foreignKey: 'user_id'
+}, {
+    parent: posts,
+    children: [
+        upvotes,
+        downvotes
+    ],
+    foreignKey: 'post_id'
+}])
 
 const models = { users, posts, upvotes, downvotes };
 

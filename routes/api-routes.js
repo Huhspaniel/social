@@ -5,8 +5,10 @@ const jwt = require('jsonwebtoken');
 function authJWT(req, res, next) {
     const auth = req.headers.authorization.split(' ');
     if (auth[0] === 'Bearer' && auth[1]) {
-        const verified = jwt.verify(auth[1], process.env.JWT_KEY);
-        if (verified) {
+        const decoded = jwt.verify(auth[1], process.env.JWT_KEY);
+        if (decoded) {
+            req.body.user_id = decoded.sub;
+            req.body.token = decoded;
             next();
         } else {
             next(new Error('Invalid token'))
@@ -46,9 +48,28 @@ module.exports = function (app) {
         })
         .post(async (req, res) => {
             try {
-                const dbRes = await db.models.users.create(req.body);
+                const dbRes = await db.users.create(req.body);
 
                 res.json(dbRes)
+            } catch (err) {
+                res.status(500).send(err);
+            }
+        })
+    app.route('/api/posts')
+        .get(async (req, res) => {
+            try {
+                const posts = await db.posts.findAll({});
+
+                res.json(posts);
+            } catch (err) {
+                res.status(500).send(err);
+            }
+        })
+        .post(authJWT, async (req, res) => {
+            try {
+                const dbRes = await db.posts.create(req.body);
+
+                res.json(dbRes);
             } catch (err) {
                 res.status(500).send(err);
             }
