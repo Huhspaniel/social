@@ -4,8 +4,23 @@ const path = require('path');
 
 const users = db.import(path.join(__dirname, 'users.js'));
 const posts = db.import(path.join(__dirname, 'posts.js'));
-const upvotes = db.define('upvotes', {});
-const downvotes = db.define('downvotes', {});
+const votes = db.define('votes', {
+    user_id: {
+        type: 'integer',
+        unique: 'upvote'
+    },
+    post_id: {
+        type: 'integer',
+        unique: 'upvote'
+    },
+    val: {
+        type: 'integer',
+        validate: {
+            min: -1,
+            max: 1
+        }
+    }
+});
 
 // set table associations
 function oneToMany(associations) {
@@ -24,21 +39,19 @@ function oneToMany(associations) {
 oneToMany([{
     parent: users,
     children: [
-        upvotes,
-        downvotes,
+        votes,
         posts
     ],
     foreignKey: 'user_id'
 }, {
     parent: posts,
     children: [
-        upvotes,
-        downvotes
+        votes
     ],
     foreignKey: 'post_id'
 }])
 
-const models = { users, posts, upvotes, downvotes };
+const models = { users, posts, votes };
 
 for (let prop in models) {
     db[prop] = models[prop];

@@ -11,9 +11,11 @@ function authJWT(req, res, next) {
             req.body.token = decoded;
             next();
         } else {
+            req.body = undefined;
             next(new Error('Invalid token'))
         }
     } else {
+        req.body = undefined;
         next(new Error('Invalid authorization. Must follow Bearer schema.'))
     }
 }
@@ -74,4 +76,16 @@ module.exports = function (app) {
                 res.status(500).send(err);
             }
         })
+    app.post('/api/votes', authJWT, async (req, res) => {
+        const { user_id, post_id, val } = req.body
+        try {
+            const dbRes = await db.votes.upsert({
+                user_id, post_id, val
+            });
+
+            res.json(dbRes);
+        } catch (err) {
+            res.status(500).send(err);
+        }
+    })
 }
