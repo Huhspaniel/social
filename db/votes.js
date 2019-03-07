@@ -2,11 +2,11 @@ module.exports = function (sequelize, types) {
     const votes = sequelize.define('votes', {
         user_id: {
             type: 'integer',
-            unique: 'upvote'
+            unique: 'vote'
         },
         post_id: {
             type: 'integer',
-            unique: 'upvote'
+            unique: 'vote'
         },
         val: {
             type: 'integer',
