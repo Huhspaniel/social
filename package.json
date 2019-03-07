@@ -10,8 +10,7 @@
     "client": "cd client && npm run start -- -o",
     "install": "cd client && npm install",
     "ng": "cd client && ng",
-    "build": "cd client && npm run build",
-    "deploy": "concurrently \"npm run build\" \"eb deploy $ENV\""
+    "build": "cd client && npm run build"
   },
   "repository": {
     "type": "git",
