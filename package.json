@@ -10,8 +10,7 @@
     "client": "cd client && npm run start -- -o",
     "install": "cd client && npm install",
     "ng": "cd client && ng",
-    "build": "cd client && npm run build",
-    "deploy": "concurrently \"npm run build\" \"eb deploy $ENV\""
+    "build": "cd client && npm run build"
   },
   "repository": {
     "type": "git",
@@ -28,13 +27,14 @@
     "cluster": "^0.7.7",
     "express": "^4.16.4",
     "if-env": "^1.0.4",
+    "jsonwebtoken": "^8.4.0",
     "pg": "^7.7.1",
     "pg-hstore": "^2.3.2",
+    "dotenv": "^6.2.0",
     "sequelize": "^4.42.0"
   },
   "devDependencies": {
     "concurrently": "^4.1.0",
-    "dotenv": "^6.2.0",
     "nodemon": "^1.18.9"
   }
 }

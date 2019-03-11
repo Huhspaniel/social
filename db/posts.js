@@ -10,5 +10,5 @@ module.exports = function (sequelize, { STRING }) {
             trim: true,
             allowNull: false
         }
-    })
+    }, {})
 }

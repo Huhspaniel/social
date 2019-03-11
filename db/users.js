@@ -3,11 +3,11 @@ const bcrypt = require('bcrypt');
 module.exports = function (sequelize, { STRING }) {
     return sequelize.define('users', {
         email: {
-            type: STRING,
+            type: 'citext',
             trim: true,
             allowNull: false,
             unique: true,
-            validator: {
+            validate: {
                 isEmail: {
                     msg: 'Email is invalid'
                 }
@@ -16,7 +16,7 @@ module.exports = function (sequelize, { STRING }) {
         password: {
             type: STRING,
             allowNull: false,
-            validator: {
+            validate: {
                 is: {
                     args: /(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z]).*/,
                     msg: 'Password must contain at least one lowercase letter, one uppercase letter, and one number'
@@ -28,12 +28,12 @@ module.exports = function (sequelize, { STRING }) {
             }
         },
         username: {
-            type: STRING,
+            type: 'citext',
             allowNull: false,
             unique: true,
-            validator: {
+            validate: {
                 is: {
-                    args: /^[a-z0-9_]*$/,
+                    args: /^[a-z0-9_]*$/i,
                     msg: 'Username can only contain letters, numbers, and _'
                 }
             }

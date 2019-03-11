@@ -1,0 +1,7 @@
+- **/node_modules
+- .*
+- *.sh
++ client/
++ client/dist/
++ client/dist/social/***
+- client/**

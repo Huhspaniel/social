@@ -4,24 +4,38 @@ const path = require('path');
 
 const users = db.import(path.join(__dirname, 'users.js'));
 const posts = db.import(path.join(__dirname, 'posts.js'));
-const upvotes = db.define('upvotes', {});
-const downvotes = db.define('downvotes', {});
+const votes = db.import(path.join(__dirname, 'votes.js'));
 
 // set table associations
-users.hasMany(upvotes, { foreignKey: 'user_id' });
-users.hasMany(downvotes, { foreignKey: 'user_id' });
-users.hasMany(posts, { foreignKey: 'user_id' });
+function oneToMany(associations) {
+    associations.forEach(({ parent, children, foreignKey }) => {
+        foreignKey = {
+            name: foreignKey,
+            allowNull: false
+        }
+        children.forEach((child => {
+            parent.hasMany(child, { foreignKey });
+            child.belongsTo(parent, { foreignKey });
+        }))
+    })
+}
 
-posts.belongsTo(users, { foreignKey: 'user_id' });
-posts.hasMany(upvotes, { foreignKey: 'post_id' });
-posts.hasMany(downvotes, { foreignKey: 'post_id' });
+oneToMany([{
+    parent: users,
+    children: [
+        votes,
+        posts
+    ],
+    foreignKey: 'user_id'
+}, {
+    parent: posts,
+    children: [
+        votes
+    ],
+    foreignKey: 'post_id'
+}])
 
-upvotes.belongsTo(users, { foreignKey: 'user_id' });
-upvotes.belongsTo(posts, { foreignKey: 'post_id' });
-downvotes.belongsTo(users, { foreignKey: 'user_id' });
-downvotes.belongsTo(posts, { foreignKey: 'post_id' });
-
-const models = { users, posts, upvotes, downvotes };
+const models = { users, posts, votes };
 
 for (let prop in models) {
     db[prop] = models[prop];
