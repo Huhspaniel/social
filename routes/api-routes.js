@@ -73,7 +73,9 @@ module.exports = function (app) {
     app.route('/api/users')
         .get(async (req, res) => {
             try {
-                const users = await db.models.users.findAll({});
+                const users = await db.models.users.findAll({
+                    attributes: { exclude: ['password'] }
+                });
 
                 res.json(users);
             } catch (err) {

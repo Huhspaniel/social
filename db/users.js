@@ -70,13 +70,6 @@ module.exports = function (sequelize, { STRING }) {
                     user.invalidate('password', 'Password encryption failed')
                 }
             }
-        },
-        intanceMethods: {
-            toJSON: function () {
-                const values = Object.assign({}, this.get());
-                delete values.password;
-                return values;
-            }
         }
     });
 }
