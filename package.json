@@ -2,13 +2,10 @@
   "name": "social",
   "version": "0.0.0",
   "description": "Social networking application built using AWS, PostgreSQL, Node.js, Express, and Angular",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
-    "start:prod": "node cluster.js",
-    "start:dev": "concurrently \"nodemon --ignore client\" \"npm run client\"",
+    "start": "concurrently \"nodemon --ignore client\" \"npm run client\"",
     "client": "cd client && npm run start -- -o",
-    "install": "cd client && npm install",
     "ng": "cd client && ng",
     "build": "cd client && npm run build"
   },
@@ -24,13 +21,10 @@
   "homepage": "https://github.com/Huhspaniel/social#readme",
   "dependencies": {
     "bcrypt": "^3.0.3",
-    "cluster": "^0.7.7",
     "express": "^4.16.4",
-    "if-env": "^1.0.4",
     "jsonwebtoken": "^8.4.0",
     "pg": "^7.7.1",
     "pg-hstore": "^2.3.2",
-    "dotenv": "^6.2.0",
     "sequelize": "^4.42.0"
   },
   "devDependencies": {
