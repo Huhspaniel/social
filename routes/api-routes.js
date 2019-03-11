@@ -74,7 +74,7 @@ module.exports = function (app) {
         .get(async (req, res) => {
             try {
                 const users = await db.models.users.findAll({
-                    attributes: { exclude: ['password'] }
+                    attributes: { exclude: ['password', 'email'] }
                 });
 
                 res.json(users);
