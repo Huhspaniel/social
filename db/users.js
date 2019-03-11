@@ -33,7 +33,7 @@ module.exports = function (sequelize, { STRING }) {
             unique: true,
             validate: {
                 is: {
-                    args: /^[a-z0-9_]*$/,
+                    args: /^[a-z0-9_]*$/i,
                     msg: 'Username can only contain letters, numbers, and _'
                 }
             }
@@ -69,6 +69,13 @@ module.exports = function (sequelize, { STRING }) {
                 } catch (err) {
                     user.invalidate('password', 'Password encryption failed')
                 }
+            }
+        },
+        intanceMethods: {
+            toJSON: function () {
+                const values = Object.assign({}, this.get());
+                delete values.password;
+                return values;
             }
         }
     });
