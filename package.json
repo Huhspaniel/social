@@ -4,7 +4,8 @@
   "description": "Social networking application built using AWS, PostgreSQL, Node.js, Express, and Angular",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"nodemon --ignore client\" \"npm run client\"",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon --ignore client",
     "client": "cd client && npm run start -- -o",
     "ng": "cd client && ng",
     "build": "cd client && npm run build"
