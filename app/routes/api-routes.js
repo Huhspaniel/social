@@ -117,7 +117,7 @@ module.exports = function (app) {
                 const posts = await db.posts.findAll({
                     include: [{
                         model: db.users,
-                        attributes: ['id', 'firstname', 'lastname', 'username']
+                        attributes: ['id', 'firstname', 'lastname', 'username', ['created_at', 'joinDate']]
                     }, {
                         model: db.votes
                     }]
