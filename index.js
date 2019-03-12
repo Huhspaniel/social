@@ -1,4 +1,4 @@
-const env = require('./.env.json');
+const env = require('./.env.json')[process.env.NODE_ENV || 'development'];
 for (const prop in env) {
     if (!process.env.hasOwnProperty(prop)) {
         process.env[prop] = env[prop];
