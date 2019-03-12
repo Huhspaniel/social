@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 function binarySearch(list, val, compare) {
-    compare = compare || function(val, x) {
+    compare = compare || function (val, x) {
         if (val < x) return -1;
         else if (val > x) return 1;
         else return 0;
@@ -34,28 +34,40 @@ function dbBinarySearch(rows, id) {
     });
 }
 
-function authJWT(req, res, next) {
-    const auth = req.headers.authorization.split(' ');
-    if (auth[0] === 'Bearer' && auth[1]) {
-        const decoded = jwt.verify(auth[1], process.env.JWT_KEY);
+const parseAuth = req => {
+    if (req.headers.authorization) {
+        const auth = req.headers.authorization.split(' ');
+        if (auth[0] === 'Bearer' && auth[1]) {
+            return auth[1];
+        }
+    }
+}
+
+const authJwt = (req, res, next) => {
+    req.bearer = parseAuth(req);
+    let error;
+    if (req.bearer) {
+        const decoded = jwt.verify(req.bearer, process.env.JWT_KEY);
         if (decoded) {
             req.body.user_id = decoded.sub;
             req.body.token = decoded;
-            next();
+            return next();
         } else {
-            req.body = undefined;
-            next(new Error('Invalid token'))
+            error = 'Invalid Token'
         }
     } else {
-        req.body = undefined;
-        res.status(403).send(new Error('Invalid authorization. Must follow Bearer schema.'))
+        error = 'Please Pass Bearer Token';
     }
+
+    res.status(401).json({ error });
 }
 
 module.exports = function (app) {
     app.post('/api/login', async (req, res) => {
+        console.log(req.body);
         try {
             const user = await db.users.find({ where: { username: req.body.username } });
+            if (!user) return res.status(404).json({ error: 'User Not Found' });
             const isValid = await bcrypt.compare(req.body.password, user.password);
 
             if (isValid) {
@@ -65,9 +77,14 @@ module.exports = function (app) {
                     exp: Math.round(Date.now() / 1000) + 172800
                 }, process.env.JWT_KEY);
                 res.json({ token });
+            } else {
+                return res.status(401).json({ error: 'Invalid Username/Password' });
             }
         } catch (err) {
-            res.status(500).send(err);
+            res.status(400).send({
+                error: `${err.name} - ${err.message}`,
+                stack: err.stack.split('\n')
+            });
         }
     })
     app.route('/api/users')
@@ -82,7 +99,7 @@ module.exports = function (app) {
 
                 res.json(users);
             } catch (err) {
-                res.status(500).send(err);
+                res.status(400).json({ error: `${err.name} - ${err.message}` });
             }
         })
         .post(async (req, res) => {
@@ -91,39 +108,42 @@ module.exports = function (app) {
 
                 res.json(dbRes)
             } catch (err) {
-                res.status(500).send(err);
+                res.status(400).json(err);
             }
         })
     app.route('/api/posts')
         .get(async (req, res) => {
             try {
-                const posts = await db.posts.findAll({});
+                const posts = await db.posts.findAll({
+                    include: [{
+                        model: db.users,
+                        attributes: ['id', 'firstname', 'lastname', 'username']
+                    }, {
+                        model: db.votes
+                    }]
+                });
 
                 res.json(posts);
             } catch (err) {
-                res.status(500).send(err);
+                res.status(400).json(err);
             }
         })
-        .post(authJWT, async (req, res) => {
+        .post(authJwt, async (req, res) => {
             try {
                 const dbRes = await db.posts.create(req.body);
 
                 res.json(dbRes);
             } catch (err) {
-                res.status(500).send(err);
+                res.status(400).json(err);
             }
         })
-    app.post('/api/votes', authJWT, async (req, res) => {
+    app.post('/api/votes', authJwt, async (req, res) => {
         const { user_id, post_id, val } = req.body
         try {
             const result = await db.votes.upsert({ user_id, post_id, val }, { returning: true });
             res.json(result);
         } catch (err) {
-            res.status(500).json({ error: {
-                name: err.name,
-                message: err.message,
-                stack: err.stack.split('\n')
-            }});
+            res.status(400).json(err);
         }
     })
 }
