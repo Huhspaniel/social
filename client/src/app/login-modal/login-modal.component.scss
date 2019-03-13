@@ -1,0 +1,62 @@
+:host(app-login-modal) {
+    position: fixed;
+    width: 500px;
+    top: calc(30%);
+    left: calc(50% - 250px);
+
+    background-color: white;
+    border-radius: 14px;
+    box-shadow: 0 0 2px black;
+}
+
+header {
+    background-color: #004f52;
+    color: white;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+    padding: 20px;
+
+    h2 {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+form {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    * {
+        margin: 5px;
+        border-radius: 4px;
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 5px black;
+        }
+    }
+    input[type=text] {
+        font-size: 15px;
+        padding: 4px;
+    }
+    input[type=submit] {
+        align-self: center;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        color: #00b4ba;
+        padding: 10px;
+        margin-top: 20px;
+        box-sizing: border-box;
+        width: 150px;
+        border-radius: 7px;
+        border: 2px solid #00b4ba;
+        background-color: #effafa;
+        &:hover {
+            opacity: .95;
+            box-shadow: 0 0 3px black;
+        }
+    }
+}
