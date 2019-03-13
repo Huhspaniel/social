@@ -39,11 +39,7 @@ export class LoginModalComponent implements OnInit {
       lastname: string
     }
     const body = Array.from(e.target).reduce((acc: signupBody, { name: key, value }) => {
-      if (key === 'name') {
-        value = value.split(' ');
-        acc.firstname = value[0];
-        acc.lastname = value[1];
-      } else if (key) {
+      if (key) {
         acc[key] = value;
       }
       return acc;
