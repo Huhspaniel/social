@@ -1,12 +1,21 @@
 <div class="modal">
   <header>
-    <h2>Login</h2>
+    <h2>{{ selectedForm === 'signup' ? 'Signup' : 'Login' }}</h2>
   </header>
-  <form action="/">
-    <label for="username">Username:</label>
+  <form [action]="apiPath">
+    <label *ngIf="selectedForm === 'signup'">Email:</label>
+    <input *ngIf="selectedForm === 'signup'" type="text" name="email">
+    <!-- <label *ngIf="selectedForm === 'signup'"></label>
+    <input *ngIf="selectedForm === 'signup'" type="text"> -->
+    <label>Username:</label>
     <input type="text" name="username">
-    <label for="password">Password:</label>
+    <label>Password:</label>
     <input type="text" name="password">
     <input type="submit" value="SUBMIT">
   </form>
+  <div class="toggle-modal" (click)="toggleModal()">{{
+    selectedForm === 'signup'
+      ? 'Already have an account? Login!'
+      : 'Don\'t have an account? Signup!' 
+  }}</div>
 </div>

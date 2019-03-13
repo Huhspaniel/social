@@ -21,12 +21,23 @@
     position: fixed;
     width: 500px;
     top: 25%;
-    transition: top ease-in .15s;
+    transition: top ease-in-out .15s;
     left: calc(50% - 250px);
 
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 0 1px black;
+    .toggle-modal {
+        cursor: pointer;
+        color: lighten(#004f52, 5%);
+        text-decoration: underline;
+        text-align: center;
+        padding-bottom: 10px;
+        &:hover {
+            color: darken(#004f52, 0%);
+            text-shadow: 0 0 2px lighten(#004f52, 70%);
+        }
+    }
 }
 
 header {
