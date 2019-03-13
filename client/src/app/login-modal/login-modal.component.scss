@@ -1,3 +1,5 @@
+@import "../../sass/mixins";
+
 :host(app-login-modal) {
     position: fixed;
     width: 100vw;
@@ -38,32 +40,26 @@ form {
     * {
         margin: 5px 0;
         border-radius: 4px;
+    }
+    input[type=text] {
+        font-size: 14px;
+        padding: 5px;
+        transition: box-shadow ease-out .2s;
         &:focus {
             outline: none;
             box-shadow: 0 0 3px black;
         }
     }
-    input[type=text] {
-        font-size: 14px;
-        padding: 5px;
-    }
     input[type=submit] {
+        @include button;
         align-self: center;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: bold;
-        letter-spacing: 1px;
-        color: #00b4ba;
-        padding: 10px;
-        margin-top: 20px;
-        box-sizing: border-box;
+        margin-top: 15px;
         width: 150px;
-        border-radius: 7px;
-        border: 2px solid #00b4ba;
-        background-color: #effafa;
         &:hover {
-            opacity: .95;
-            box-shadow: 0 0 2px black;
+            box-shadow: 0 0 3px black;
+        }
+        &:focus {
+            box-shadow: 0 0 5px black;
         }
     }
 }

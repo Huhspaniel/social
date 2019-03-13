@@ -1,0 +1,23 @@
+@mixin button {
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #00b4ba;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100px;
+    margin: 0 10px;
+    border-radius: 7px;
+    border: 2px solid #00b4ba;
+    background-color: #effafa;
+    transition: box-shadow ease-out .1s;
+    &:hover {
+        opacity: .95;
+        box-shadow: 0 0 3px white;
+    }
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 5px white;
+    }
+}
