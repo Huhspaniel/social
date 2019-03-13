@@ -56,10 +56,12 @@ module.exports = function (sequelize, { STRING }) {
         },
         setterMethods: {
             name(val) {
-                const names = val.split(' ');
-
-                this.setDataValue('firstname', names.slice(0, -1).join(' '));
-                this.setDataValue('lastname', names.slice(-1).join(' '));
+                if (typeof val === 'string') {
+                    const names = val.split(' ');
+    
+                    this.setDataValue('firstname', names.slice(0, -1).join(' '));
+                    this.setDataValue('lastname', names.slice(-1).join(' '));
+                }
             }
         },
         hooks: {
