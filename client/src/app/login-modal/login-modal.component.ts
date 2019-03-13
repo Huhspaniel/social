@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, Input, Injectable, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, HostBinding, Input, Injectable, Output, EventEmitter, HostListener } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -12,31 +12,30 @@ export class LoginModalComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  @HostBinding('class.hidden') @Input() hidden: boolean;
-  @Input() selectedForm: string;
-  @Output() showModal = new EventEmitter<string>();
-  @Output() hideModal = new EventEmitter();
-
-  toggleModal() {
-    if (this.selectedForm === 'login') {
-      this.showModal.emit('signup');
-    } else {
-      this.showModal.emit('login');
+  @Input() modalStatus: string|null;
+  @Output() setModalStatus = new EventEmitter<string|null>();
+  @HostListener('click', ['$event']) onClick(e) {
+    if (e.target.tagName === 'APP-LOGIN-MODAL') {
+      this.setModalStatus.emit(null);
     }
-  }
-  closeModal() {
-    this.hideModal.emit();
+  };
+  toggleModal() {
+    if (this.modalStatus === 'login') {
+      this.setModalStatus.emit('signup');
+    } else {
+      this.setModalStatus.emit('login');
+    }
   }
 
   sendForm(body: object) {
-    const path = `/api/${this.selectedForm === 'signup' ? 'users' : 'login'}`;
+    const path = `/api/${this.modalStatus === 'signup' ? 'users' : 'login'}`;
     return this.http.post(path, JSON.stringify(body), {
       headers: {
         'Content-Type': 'application/json'
       }
     });
   }
-  getApiPath = () => `/api/${this.selectedForm === 'signup' ? 'users' : 'login'}`
+  getApiPath = () => `/api/${this.modalStatus === 'signup' ? 'users' : 'login'}`
   async handleSubmit(e) {
     e.preventDefault();
     type signupBody = {

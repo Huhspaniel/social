@@ -4,18 +4,16 @@
   <a routerLink="posts" class="fas fa-comment-alt"></a>
 </nav>
 <div class="login-signup">
-  <button class="login" value="login" (click)="showModal('login')">
+  <button class="login" value="login" (click)="setModalStatus('login')">
     LOG IN
   </button>
-  <button class="signup" value="signup" (click)="showModal('signup')">
+  <button class="signup" value="signup" (click)="setModalStatus('signup')">
     SIGN UP
   </button>
 </div>
 <app-login-modal
-  [hidden]="!modalStatus"
-  [selectedForm]="modalStatus"
-  (click)="handleClick($event)"
-  (showModal)="showModal($event)"
-  (hideModal)="hideModal($event)"
+  [class]="modalStatus ? '' : 'hidden'"
+  [modalStatus]="modalStatus"
+  (setModalStatus)="setModalStatus($event)"
 >
 </app-login-modal>

@@ -1,12 +1,12 @@
 <div class="modal">
   <header>
-    <h2>{{ selectedForm === 'signup' ? 'Signup' : 'Login' }}</h2>
+    <h2>{{ modalStatus === 'signup' ? 'Signup' : 'Login' }}</h2>
   </header>
   <form [action]="getApiPath()" method="post" (submit)="handleSubmit($event)">
-    <label *ngIf="selectedForm === 'signup'">Email:</label>
-    <input *ngIf="selectedForm === 'signup'" type="text" name="email">
-    <label *ngIf="selectedForm === 'signup'">Name</label>
-    <input *ngIf="selectedForm === 'signup'" type="text" name="name">
+    <label *ngIf="modalStatus === 'signup'">Email:</label>
+    <input *ngIf="modalStatus === 'signup'" type="text" name="email">
+    <label *ngIf="modalStatus === 'signup'">Name</label>
+    <input *ngIf="modalStatus === 'signup'" type="text" name="name">
     <label>Username:</label>
     <input type="text" name="username">
     <label>Password:</label>
@@ -14,7 +14,7 @@
     <input type="submit" value="SUBMIT">
   </form>
   <div class="toggle-modal" (click)="toggleModal()">{{
-    selectedForm === 'signup'
+    modalStatus === 'signup'
       ? 'Already have an account? Login!'
       : 'Don\'t have an account? Signup!' 
   }}</div>
