@@ -13,11 +13,14 @@
     background-color: #effafa;
     transition: box-shadow ease-out .1s;
     &:hover {
-        opacity: .95;
         box-shadow: 0 0 3px white;
     }
     &:focus {
         outline: none;
         box-shadow: 0 0 5px white;
+    }
+    &:active {
+        background-color: darken(#effafa, 2%);
+        color: lighten(#00b4ba, 2%)
     }
 }
