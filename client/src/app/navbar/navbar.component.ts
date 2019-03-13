@@ -11,6 +11,7 @@ export class NavbarComponent implements OnInit {
   constructor() { }
 
   @Input() loggedIn: boolean;
+  @Input() username: string;
   @Output() login = new EventEmitter<object>();
   @Output() logout = new EventEmitter();
 

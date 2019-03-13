@@ -10,6 +10,9 @@
   <button *ngIf="!loggedIn" class="signup" value="signup" (click)="setModalStatus('signup')">
     SIGN UP
   </button>
+  <div *ngIf="loggedIn" class="username">
+    @{{ username }}
+  </div>
   <button *ngIf="loggedIn" class="logout" value="logout" (click)="logout.emit()">
     LOG OUT
   </button>

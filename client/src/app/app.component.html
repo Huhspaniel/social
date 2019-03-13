@@ -1,2 +1,8 @@
-<app-navbar (login)="login($event)" (logout)="logout()" [loggedIn]="loggedIn"></app-navbar>
+<app-navbar
+    (login)="login($event)"
+    (logout)="logout()"
+    [loggedIn]="loggedIn"
+    [username]="username"
+>
+</app-navbar>
 <router-outlet style="display: none"></router-outlet>
