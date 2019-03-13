@@ -63,7 +63,7 @@ form {
         margin: 5px 0;
         border-radius: 4px;
     }
-    input[type=text] {
+    input[type=text], input[type=password] {
         font-size: 14px;
         padding: 5px;
         transition: box-shadow ease-out .2s;
