@@ -8,12 +8,15 @@ import { Component, OnInit } from '@angular/core';
 
 export class NavbarComponent implements OnInit {
   modalStatus = null;
-  showModal(selectedForm) {
+  showModal(selectedForm: string) {
     this.modalStatus = selectedForm;
   }
-  hideModal(e) {
+  hideModal() {
+    this.modalStatus = null;
+  }
+  handleClick(e) {
     if (e.target.tagName === 'APP-LOGIN-MODAL') {
-      this.modalStatus = null;
+      this.hideModal();
     }
   }
 

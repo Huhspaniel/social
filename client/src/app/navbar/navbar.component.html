@@ -14,6 +14,8 @@
 <app-login-modal
   [hidden]="!modalStatus"
   [selectedForm]="modalStatus"
-  (click)="hideModal($event)"
+  (click)="handleClick($event)"
+  (showModal)="showModal($event)"
+  (hideModal)="hideModal($event)"
 >
 </app-login-modal>

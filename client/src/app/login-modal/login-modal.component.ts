@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, Input, Injectable } from '@angular/core';
+import { Component, OnInit, HostBinding, Input, Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -14,6 +14,20 @@ export class LoginModalComponent implements OnInit {
 
   @HostBinding('class.hidden') @Input() hidden: boolean;
   @Input() selectedForm: string;
+  @Output() showModal = new EventEmitter<string>();
+  @Output() hideModal = new EventEmitter();
+
+  toggleModal() {
+    if (this.selectedForm === 'login') {
+      this.showModal.emit('signup');
+    } else {
+      this.showModal.emit('login');
+    }
+  }
+  closeModal() {
+    this.hideModal.emit();
+  }
+
   sendForm(body: object) {
     const path = `/api/${this.selectedForm === 'signup' ? 'users' : 'login'}`;
     return this.http.post(path, JSON.stringify(body), {
@@ -23,13 +37,6 @@ export class LoginModalComponent implements OnInit {
     });
   }
   getApiPath = () => `/api/${this.selectedForm === 'signup' ? 'users' : 'login'}`
-  toggleModal() {
-    if (this.selectedForm === 'login') {
-      this.selectedForm = 'signup';
-    } else {
-      this.selectedForm = 'login';
-    }
-  }
   async handleSubmit(e) {
     e.preventDefault();
     type signupBody = {
@@ -47,7 +54,6 @@ export class LoginModalComponent implements OnInit {
     console.log(body);
     try {
       this.sendForm(body).subscribe();
-      this.hidden = true;
     } catch (err) {
       console.error(err);
     }
