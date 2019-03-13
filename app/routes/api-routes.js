@@ -76,7 +76,7 @@ module.exports = function (app) {
                     sub: user.id,
                     exp: Math.round(Date.now() / 1000) + 172800
                 }, process.env.JWT_KEY);
-                res.json({ token });
+                res.json({ token, username: user.username, id: user.id });
             } else {
                 return res.status(401).json({ error: 'Invalid Username/Password' });
             }

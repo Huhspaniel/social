@@ -3,7 +3,7 @@
   <a routerLink="users" class="fas fa-users"></a>
   <a routerLink="posts" class="fas fa-comment-alt"></a>
 </nav>
-<div class="login-signup">
+<div class="login-signup" *ngIf="!loggedIn">
   <button class="login" value="login" (click)="setModalStatus('login')">
     LOG IN
   </button>
@@ -11,9 +11,10 @@
     SIGN UP
   </button>
 </div>
-<app-login-modal
+<app-login-modal *ngIf="!loggedIn"
   [class]="modalStatus ? '' : 'hidden'"
   [modalStatus]="modalStatus"
   (setModalStatus)="setModalStatus($event)"
+  (login)="login.emit($event)"
 >
 </app-login-modal>

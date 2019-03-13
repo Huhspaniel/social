@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, Input, Injectable, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, OnInit, Input, Injectable, Output, EventEmitter, HostListener } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -12,11 +12,12 @@ export class LoginModalComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  @Input() modalStatus: string|null;
-  @Output() setModalStatus = new EventEmitter<string|null>();
+  @Output() login = new EventEmitter<object>();
+  @Input() modalStatus: string | null;
+  @Output() setModalStatus = new EventEmitter<string | null>();
   @HostListener('click', ['$event']) onClick(e) {
     if (e.target.tagName === 'APP-LOGIN-MODAL') {
-      this.setModalStatus.emit(null);
+      this.closeModal();
     }
   };
   toggleModal() {
@@ -26,36 +27,48 @@ export class LoginModalComponent implements OnInit {
       this.setModalStatus.emit('login');
     }
   }
+  closeModal() {
+    this.setModalStatus.emit(null);
+  }
 
-  sendForm(body: object) {
-    const path = `/api/${this.modalStatus === 'signup' ? 'users' : 'login'}`;
-    return this.http.post(path, JSON.stringify(body), {
+  postApi(body: object, resource: string) {
+    return this.http.post(`/api/${resource}`, JSON.stringify(body), {
       headers: {
         'Content-Type': 'application/json'
       }
     });
   }
+  send_login(body: object) {
+    return this.postApi(body, 'login').subscribe(
+      data => {
+        this.login.emit(data);
+        this.closeModal();
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
+  send_signup(body: object) {
+    return this.postApi(body, 'users').subscribe(
+      () => {
+        this.send_login(body);
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
   getApiPath = () => `/api/${this.modalStatus === 'signup' ? 'users' : 'login'}`
   async handleSubmit(e) {
     e.preventDefault();
-    type signupBody = {
-      email: string,
-      username: string,
-      firstname: string,
-      lastname: string
-    }
-    const body = Array.from(e.target).reduce((acc: signupBody, { name: key, value }) => {
+    const body = Array.from(e.target).reduce((acc, { name: key, value }) => {
       if (key) {
         acc[key] = value;
       }
       return acc;
     }, {});
-    console.log(body);
-    try {
-      this.sendForm(body).subscribe();
-    } catch (err) {
-      console.error(err);
-    }
+    this[`send_${this.modalStatus}`](body);
   }
 
   ngOnInit() {

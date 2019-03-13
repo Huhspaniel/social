@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -7,12 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class NavbarComponent implements OnInit {
+
+  constructor() { }
+
+  @Input() loggedIn: boolean;
+  @Output() login = new EventEmitter<object>();
+
   modalStatus: string|null = null;
   setModalStatus(status: string|null) {
     this.modalStatus = status;
   }
-
-  constructor() { }
 
   ngOnInit() {
   }
