@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding, Input } from '@angular/core';
 
 @Component({
   selector: 'app-login-modal',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login-modal.component.scss']
 })
 export class LoginModalComponent implements OnInit {
+  @HostBinding('class.hidden') @Input() hidden: boolean;
+  @Input() selectedForm: string;
 
   constructor() { }
 

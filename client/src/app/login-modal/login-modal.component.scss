@@ -5,12 +5,23 @@
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.2);
+
+    transition: opacity ease-in-out .15s;
+    opacity: 1;
+    &.hidden {
+        opacity: 0;
+        z-index: -1;
+        .modal {
+            top: 24%;
+        }
+    }
 }
 
 .modal {
     position: fixed;
     width: 500px;
     top: 25%;
+    transition: top ease-in .15s;
     left: calc(50% - 250px);
 
     background-color: white;
