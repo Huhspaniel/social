@@ -2,11 +2,11 @@
   <header>
     <h2>{{ selectedForm === 'signup' ? 'Signup' : 'Login' }}</h2>
   </header>
-  <form [action]="apiPath">
+  <form [action]="getApiPath()" method="post" (submit)="handleSubmit($event)">
     <label *ngIf="selectedForm === 'signup'">Email:</label>
     <input *ngIf="selectedForm === 'signup'" type="text" name="email">
-    <!-- <label *ngIf="selectedForm === 'signup'"></label>
-    <input *ngIf="selectedForm === 'signup'" type="text"> -->
+    <label *ngIf="selectedForm === 'signup'">Name</label>
+    <input *ngIf="selectedForm === 'signup'" type="text" name="name">
     <label>Username:</label>
     <input type="text" name="username">
     <label>Password:</label>
