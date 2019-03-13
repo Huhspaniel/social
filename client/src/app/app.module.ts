@@ -7,6 +7,7 @@ import { PostsPageComponent } from './posts-page/posts-page.component';
 import { UsersPageComponent } from './users-page/users-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginModalComponent } from './login-modal/login-modal.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 const appRoutes = [{
   path: 'posts',
@@ -25,7 +26,8 @@ const appRoutes = [{
     PostsPageComponent,
     UsersPageComponent,
     HomePageComponent,
-    LoginModalComponent
+    LoginModalComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
