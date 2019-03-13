@@ -12,6 +12,7 @@ export class NavbarComponent implements OnInit {
 
   @Input() loggedIn: boolean;
   @Output() login = new EventEmitter<object>();
+  @Output() logout = new EventEmitter();
 
   modalStatus: string|null = null;
   setModalStatus(status: string|null) {

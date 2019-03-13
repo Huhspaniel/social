@@ -20,6 +20,12 @@ export class AppComponent {
     this.userId = data.id;
     sessionStorage.setItem('token', data.token);
   }
+  logout() {
+    this.loggedIn = false;
+    this.username = null;
+    this.userId = null;
+    sessionStorage.clear();
+  }
   sendLogin(token: string) {
     this.http.post('/api/login', {}, {
       headers: {
