@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http'
 
 @Component({
   selector: 'app-root',
@@ -6,6 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  constructor (private http: HttpClient) {}
+
   title = 'app';
   loggedIn = false;
   username: string = null;
@@ -15,5 +19,25 @@ export class AppComponent {
     this.username = data.username;
     this.userId = data.id;
     sessionStorage.setItem('token', data.token);
+  }
+  sendLogin(token: string) {
+    this.http.post('/api/login', {}, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }).subscribe(
+      data => {
+        this.login(data);
+      },
+      err => {
+        console.error(err);
+      }
+    )
+  }
+  ngOnInit() {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      this.sendLogin(token);
+    }
   }
 }

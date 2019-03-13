@@ -34,17 +34,7 @@ function dbBinarySearch(rows, id) {
     });
 }
 
-const parseAuth = req => {
-    if (req.headers.authorization) {
-        const auth = req.headers.authorization.split(' ');
-        if (auth[0] === 'Bearer' && auth[1]) {
-            return auth[1];
-        }
-    }
-}
-
 const authJwt = (req, res, next) => {
-    req.bearer = parseAuth(req);
     let error;
     if (req.bearer) {
         const decoded = jwt.verify(req.bearer, process.env.JWT_KEY);
@@ -62,20 +52,32 @@ const authJwt = (req, res, next) => {
     res.status(401).json({ error });
 }
 
+const signToken = (user_id) => jwt.sign({
+    iss: 'huhspaniel.com',
+    sub: user_id,
+    exp: Math.round(Date.now() / 1000) + 172800
+}, process.env.JWT_KEY);
+
 module.exports = function (app) {
     app.post('/api/login', async (req, res) => {
-        console.log(req.body);
         try {
+            if (req.bearer) {
+                const decoded = jwt.verify(req.bearer, process.env.JWT_KEY);
+                if (decoded) {
+                    const user = await db.users.findByPk(decoded.sub);
+                    if (user) {
+                        const token = signToken(user.id);
+                        return res.json({ token, username: user.username, id: user.id });
+                    }
+                }
+            }
+
             const user = await db.users.find({ where: { username: req.body.username } });
             if (!user) return res.status(404).json({ error: 'User Not Found' });
             const isValid = await bcrypt.compare(req.body.password, user.password);
 
             if (isValid) {
-                const token = jwt.sign({
-                    iss: 'huhspaniel.com',
-                    sub: user.id,
-                    exp: Math.round(Date.now() / 1000) + 172800
-                }, process.env.JWT_KEY);
+                const token = signToken(user.id);
                 res.json({ token, username: user.username, id: user.id });
             } else {
                 return res.status(401).json({ error: 'Invalid Username/Password' });
