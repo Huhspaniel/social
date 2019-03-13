@@ -41,12 +41,18 @@ module.exports = function (sequelize, { STRING }) {
         firstname: {
             type: STRING,
             trim: true,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                len: [1]
+            }
         },
         lastname: {
             type: STRING,
             trim: true,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                len: [1]
+            }
         }
     }, {
         getterMethods: {

@@ -1,0 +1,88 @@
+@import "../../sass/mixins";
+
+:host(app-login-modal) {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: black;
+
+    transition: opacity ease-in-out .15s;
+    opacity: 1;
+    &.hidden {
+        opacity: 0;
+        z-index: -1;
+        .modal {
+            top: 24%;
+        }
+    }
+}
+
+.modal {
+    position: fixed;
+    width: 500px;
+    top: 25%;
+    transition: top ease-in-out .15s;
+    left: calc(50% - 250px);
+
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 1px black;
+    .toggle-modal {
+        cursor: pointer;
+        color: lighten(#004f52, 5%);
+        text-decoration: underline;
+        text-align: center;
+        padding-bottom: 10px;
+        &:hover {
+            color: darken(#004f52, 0%);
+            text-shadow: 0 0 2px lighten(#004f52, 70%);
+        }
+    }
+}
+
+header {
+    background-color: #004f52;
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 20px;
+
+    h2 {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+form {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    * {
+        margin: 5px 0;
+        border-radius: 4px;
+    }
+    input[type=text], input[type=password] {
+        font-size: 14px;
+        padding: 5px;
+        transition: box-shadow ease-out .2s;
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 3px black;
+        }
+    }
+    input[type=submit] {
+        @include button;
+        align-self: center;
+        margin-top: 15px;
+        width: 150px;
+        &:hover {
+            box-shadow: 0 0 3px black;
+        }
+        &:focus {
+            box-shadow: 0 0 5px black;
+        }
+    }
+}

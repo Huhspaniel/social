@@ -1,16 +1,8 @@
-<header>
-  <nav>
-    <a routerLink="" class="fas fa-home"></a>
-    <a routerLink="users" class="fas fa-users"></a>
-    <a routerLink="posts" class="fas fa-comment-alt"></a>
-  </nav>
-  <div class="login-signup">
-    <button class="login">
-      LOG IN
-    </button>
-    <button class="signup">
-      SIGN UP
-    </button>
-  </div>
-</header>
+<app-navbar
+    (login)="login($event)"
+    (logout)="logout()"
+    [loggedIn]="loggedIn"
+    [username]="username"
+>
+</app-navbar>
 <router-outlet style="display: none"></router-outlet>

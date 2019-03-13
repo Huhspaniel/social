@@ -1,0 +1,26 @@
+<nav>
+  <a routerLink="" class="fas fa-home"></a>
+  <a routerLink="users" class="fas fa-users"></a>
+  <a routerLink="posts" class="fas fa-comment-alt"></a>
+</nav>
+<div class="login-signup">
+  <button *ngIf="!loggedIn" class="login" value="login" (click)="setModalStatus('login')">
+    LOG IN
+  </button>
+  <button *ngIf="!loggedIn" class="signup" value="signup" (click)="setModalStatus('signup')">
+    SIGN UP
+  </button>
+  <div *ngIf="loggedIn" class="username">
+    @{{ username }}
+  </div>
+  <button *ngIf="loggedIn" class="logout" value="logout" (click)="logout.emit()">
+    LOG OUT
+  </button>
+</div>
+<app-login-modal *ngIf="!loggedIn"
+  [class]="modalStatus ? '' : 'hidden'"
+  [modalStatus]="modalStatus"
+  (setModalStatus)="setModalStatus($event)"
+  (login)="login.emit($event)"
+>
+</app-login-modal>
