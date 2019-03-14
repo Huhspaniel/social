@@ -13,19 +13,19 @@ export class AppComponent {
 
   title = 'app';
   loggedIn: boolean = false;
-  username: string = null;
-  userId: number = null;
+  user: {
+    username: string,
+    id: number
+  } | null
 
   loginState = ({ username, id, token }): void => {
     this.loggedIn = true;
-    this.username = username;
-    this.userId = id;
+    this.user = { username, id }
     sessionStorage.setItem('token', token);
   }
   logoutState = (): void => {
     this.loggedIn = false;
-    this.username = null;
-    this.userId = null;
+    this.user = null;
     sessionStorage.clear();
   }
   login = (auth): Promise<any> => {

@@ -9,7 +9,7 @@
     SIGN UP
   </button>
   <div *ngIf="loggedIn" class="username">
-    @{{ username }}
+    @{{ user.username }}
   </div>
   <button *ngIf="loggedIn" class="logout" value="logout" (click)="logout()">
     LOG OUT

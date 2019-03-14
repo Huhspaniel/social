@@ -8,15 +8,15 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 export class NavbarComponent implements OnInit {
 
-  modalState: string|null = null;
+  modalState: string | null = null;
   constructor() { }
 
   @Input() loggedIn: boolean;
-  @Input() username: string;
+  @Input() user: { username: string, id: number } | null;
   @Input() signup: Function;
   @Input() login: Function;
   @Input() logout: Function;
-  setModal = (status: string|null): void => {
+  setModal = (status: string | null): void => {
     this.modalState = status;
   }
 
