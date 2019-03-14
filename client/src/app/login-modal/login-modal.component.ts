@@ -2,9 +2,8 @@ import {
   Component,
   Input,
   Injectable,
-  Output,
-  EventEmitter,
-  HostListener
+  HostListener,
+  HostBinding
 } from '@angular/core';
 
 @Component({
@@ -21,8 +20,8 @@ export class LoginModalComponent {
   @Input() login: Function;
   @Input() signup: Function;
 
-  @Input() modalState: string | null;
-  @Input() setModal: (status: string | null) => void;
+  @HostBinding('class') @Input() modalState: string;
+  @Input() setModal: (status: string) => void;
   toggleModal = () => {
     if (this.modalState === 'login') {
       this.setModal('signup');
@@ -31,7 +30,7 @@ export class LoginModalComponent {
     }
   }
   closeModal = () => {
-    this.setModal(null);
+    this.setModal('hidden');
   }
   @HostListener('click', ['$event']) onClick(e) {
     if (e.target.tagName === 'APP-LOGIN-MODAL') {

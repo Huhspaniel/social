@@ -8,12 +8,11 @@
     color: black;
 
     transition: opacity ease-in-out .15s;
-    opacity: 1;
     &.hidden {
         opacity: 0;
         z-index: -1;
         .modal {
-            top: 24%;
+            top: 18%;
         }
     }
 }
@@ -21,7 +20,7 @@
 .modal {
     position: fixed;
     width: 500px;
-    top: 25%;
+    top: 20%;
     transition: top ease-in-out .15s;
     left: calc(50% - 250px);
 
