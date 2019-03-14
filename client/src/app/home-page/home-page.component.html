@@ -1,10 +1,12 @@
-<div class="feed" *ngIf="feed && feed[0]">
-    <div class="post" *ngFor="let post of feed">
+<div class="posts" *ngIf="posts && posts[0]">
+    <div class="post" *ngFor="let post of posts; index as i;">
         <div class="votes">
             <div class="{{'score ' + (post.score >= 0 ? 'up' : 'down')}}">{{ post.score }}</div>
             <div class="vote-btns">
-                <i class="{{(post.userVote === 1 ? 'fas' : 'far') + ' fa-arrow-alt-circle-up vote-up'}}"></i>
-                <i class="{{(post.userVote === -1 ? 'fas' : 'far') + ' fa-arrow-alt-circle-down vote-down'}}"></i>
+                <i class="{{(post.userVote === 1 ? 'fas' : 'far') + ' fa-arrow-alt-circle-up vote-up'}}"
+                (click)="handleVote(i, 1)"></i>
+                <i class="{{(post.userVote === -1 ? 'fas' : 'far') + ' fa-arrow-alt-circle-down vote-down'}}"
+                (click)="handleVote(i, -1)"></i>
             </div>
         </div>
         <h3>{{ post.title }}<a href="#">@{{ post.user.username }}</a></h3>

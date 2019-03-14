@@ -9,7 +9,7 @@ import { ApiService } from '../api.service';
 
 export class HomePageComponent implements OnInit {
 
-  feed: Array<any>;
+  posts: Array<any>;
   appState: any;
   constructor(private api: ApiService) { }
 
@@ -25,18 +25,39 @@ export class HomePageComponent implements OnInit {
     return post;
   })
 
-  async refreshFeed() {
+  async refreshposts() {
     try {
       const posts = await this.api.get('posts');
       console.log(posts);
-      this.feed = this.parsePosts(posts);
+      this.posts = this.parsePosts(posts);
     } catch (err) {
       console.error(err);
     }
   }
 
+  vote(postIndex: number, val: number) {
+  }
+  handleVote(postIndex: number, val: number) {
+    const post = this.posts[postIndex];
+    if (this.posts[postIndex].userVote === val) {
+      post.score -= val;
+      post.userVote = val = 0;
+    } else {
+      post.score += val - post.userVote;
+      post.userVote = val;
+    }
+    this.api.post('votes', {
+      post_id: this.posts[postIndex].id, val
+    }).then(data => {
+      if (data[0].val !== val) {
+        post.userVote = data[0].val;
+        post.score -= val - data[0].val;
+      }
+    })
+  }
+
   ngOnInit() {
-    this.refreshFeed();
+    this.refreshposts();
   }
 
 }

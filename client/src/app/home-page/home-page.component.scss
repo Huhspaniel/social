@@ -4,7 +4,7 @@
     display: grid;
 }
 
-.feed {
+.posts {
     justify-self: center;
     background-color: #fefefe;
     border-radius: 5px;
@@ -16,7 +16,7 @@
     margin: 30px;
     .post {
         display: grid;
-        grid-template: auto auto / auto 1fr;
+        grid-template: auto auto / 100px 1fr;
         grid-template-areas:
             "votes title"
             "votes content";
@@ -28,7 +28,7 @@
             grid-area: votes;
             padding: 10px;
             display: grid;
-            grid-template: auto / auto auto;
+            grid-template: auto / 1fr auto;
             grid-gap: 2px;
             justify-items: center;
             align-items: center;
@@ -65,9 +65,15 @@
                 .fas {
                     &.vote-up {
                         color: $up-color;
+                        &:hover {
+                            text-shadow: 0 0 1px rgba(black, 0.5);
+                        }
                     }
                     &.vote-down {
                         color: $down-color;
+                        &:hover {
+                            text-shadow: 0 0 1px rgba(black, 0.5);
+                        }
                     }
                 }
             }
