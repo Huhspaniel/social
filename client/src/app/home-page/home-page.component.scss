@@ -21,18 +21,55 @@
             "votes title"
             "votes content";
         .votes {
+            background-color: #f9f9f9;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-right: 1px solid rgba(0, 0, 0, 0.4);
             grid-area: votes;
             padding: 10px;
             display: grid;
             grid-template: auto / auto auto;
-            grid-gap: 5px;
+            grid-gap: 2px;
             justify-items: center;
             align-items: center;
+            $up-color: lighten($primary-color, 30%);
+            $down-color: rgb(249, 86, 86);
+            .score {
+                font-size: 18px;
+                &.up {
+                    color: $up-color;
+                }
+                &.down {
+                    color: $down-color;
+                }
+            }
             .vote-btns {
                 font-size: 28px;
                 display: grid;
                 grid-template: auto auto / auto;
                 grid-gap: 5px;
+                color: rgba(0, 0, 0, 0.5);
+                i {
+                    cursor: pointer;
+                }
+                .far {
+                    &:hover {
+                        &.vote-up {
+                            text-shadow: 0 0 1px rgba($up-color, 0.4);
+                        }
+                        &.vote-down {
+                            text-shadow: 0 0 1px rgba($down-color, 0.4);
+                        }
+                    }
+                }
+                .fas {
+                    &.vote-up {
+                        color: $up-color;
+                    }
+                    &.vote-down {
+                        color: $down-color;
+                    }
+                }
             }
         }
         h3 {
@@ -41,7 +78,7 @@
             padding: 7px;
             display: grid;
             grid-template-columns: 1fr min-content;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.4);
             a {
                 font-size: 14px;
                 align-self: center;

@@ -1,10 +1,10 @@
 <div class="feed" *ngIf="feed && feed[0]">
     <div class="post" *ngFor="let post of feed">
         <div class="votes">
-            <div class="score">{{ post.score }}</div>
+            <div [class]="post.score >= 0 ? 'score up' : 'score down'">{{ post.score }}</div>
             <div class="vote-btns">
-                <i class="far fa-arrow-alt-circle-up"></i>
-                <i class="far fa-arrow-alt-circle-down"></i>
+                <i class="far fa-arrow-alt-circle-up vote-up"></i>
+                <i class="far fa-arrow-alt-circle-down vote-down"></i>
             </div>
         </div>
         <h3>{{ post.title }}<a href="#">@{{ post.user.username }}</a></h3>
