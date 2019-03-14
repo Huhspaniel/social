@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-home-page',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePageComponent implements OnInit {
 
-  constructor() { }
+  feed: Array<any>;
+  constructor(private api: ApiService) { }
+
+  async refreshFeed() {
+    try {
+      this.feed = await this.api.get('posts');
+      console.log(this.feed);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   ngOnInit() {
+    this.refreshFeed();
   }
 
 }
