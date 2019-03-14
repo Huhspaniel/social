@@ -21,6 +21,7 @@ export class HomePageComponent implements OnInit {
     }, { score: 0, userVote: 0 });
     post.score = data.score;
     post.userVote = data.userVote;
+    console.log(this.appState);
     return post;
   })
 

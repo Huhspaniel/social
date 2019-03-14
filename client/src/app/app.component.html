@@ -2,8 +2,8 @@
     [signup]="signup"
     [login]="login"
     [logout]="logout"
-    [loggedIn]="loggedIn"
-    [user]="user"
+    [loggedIn]="state.loggedIn"
+    [user]="state.user"
 >
 </app-navbar>
 <router-outlet style="display: none" (activate)="routerActivate($event)"></router-outlet>
