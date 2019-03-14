@@ -7,12 +7,12 @@
     background-color: rgba(0, 0, 0, 0.2);
     color: black;
 
-    transition: opacity ease-in-out .15s;
+    transition: opacity ease-in-out .1s;
     &.hidden {
         opacity: 0;
         z-index: -1;
         .modal {
-            top: 18%;
+            top: 19%;
         }
     }
 }
@@ -21,7 +21,7 @@
     position: fixed;
     width: 500px;
     top: 20%;
-    transition: top ease-in-out .15s;
+    transition: top ease-in-out .1s;
     left: calc(50% - 250px);
 
     background-color: white;
@@ -30,6 +30,7 @@
     .toggle-modal {
         cursor: pointer;
         color: lighten(#004f52, 5%);
+        font-size: 14px;
         text-decoration: underline;
         text-align: center;
         padding-bottom: 10px;
