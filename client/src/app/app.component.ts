@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
+import { ApiService } from './api.service';
 
 @Component({
   selector: 'app-root',
@@ -8,42 +9,42 @@ import { HttpClient } from '@angular/common/http'
 })
 export class AppComponent {
 
-  constructor (private http: HttpClient) {}
+  constructor (private http: HttpClient, private api: ApiService) {}
 
   title = 'app';
-  loggedIn = false;
+  loggedIn: boolean = false;
   username: string = null;
   userId: number = null;
-  login(data) {
+
+  loginState = ({ username, id, token }): void => {
     this.loggedIn = true;
-    this.username = data.username;
-    this.userId = data.id;
-    sessionStorage.setItem('token', data.token);
+    this.username = username;
+    this.userId = id;
+    sessionStorage.setItem('token', token);
   }
-  logout() {
+  logoutState = (): void => {
     this.loggedIn = false;
     this.username = null;
     this.userId = null;
     sessionStorage.clear();
   }
-  sendLogin(token: string) {
-    this.http.post('/api/login', {}, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    }).subscribe(
-      data => {
-        this.login(data);
-      },
-      err => {
-        console.error(err);
-      }
-    )
+  login = (auth): Promise<any> => {
+    return this.api.post('login', auth)
+      .then(this.loginState);
   }
+  logout = this.logoutState;
+
+  signup = (data): Promise<any> => {
+    return this.api.post('users', data)
+      .then(() => this.login(data))
+      .then(this.loginState)
+  }
+
   ngOnInit() {
     const token = sessionStorage.getItem('token');
     if (token) {
-      this.sendLogin(token);
+      this.login({ token })
+        .catch(err => console.error(err));
     }
   }
 }

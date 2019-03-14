@@ -2,23 +2,24 @@
   <a routerLink="" class="fas fa-home"></a>
 </nav>
 <div class="login-signup">
-  <button *ngIf="!loggedIn" class="login" value="login" (click)="setModalStatus('login')">
+  <button *ngIf="!loggedIn" class="login" value="login" (click)="setModal('login')">
     LOG IN
   </button>
-  <button *ngIf="!loggedIn" class="signup" value="signup" (click)="setModalStatus('signup')">
+  <button *ngIf="!loggedIn" class="signup" value="signup" (click)="setModal('signup')">
     SIGN UP
   </button>
   <div *ngIf="loggedIn" class="username">
     @{{ username }}
   </div>
-  <button *ngIf="loggedIn" class="logout" value="logout" (click)="logout.emit()">
+  <button *ngIf="loggedIn" class="logout" value="logout" (click)="logout()">
     LOG OUT
   </button>
 </div>
 <app-login-modal *ngIf="!loggedIn"
-  [class]="modalStatus ? '' : 'hidden'"
-  [modalStatus]="modalStatus"
-  (setModalStatus)="setModalStatus($event)"
-  (login)="login.emit($event)"
+  [class]="modalState ? '' : 'hidden'"
+  [modalState]="modalState"
+  [setModal]="setModal"
+  [login]="login"
+  [signup]="signup"
 >
 </app-login-modal>

@@ -1,6 +1,7 @@
 <app-navbar
-    (login)="login($event)"
-    (logout)="logout()"
+    [signup]="signup"
+    [login]="login"
+    [logout]="logout"
     [loggedIn]="loggedIn"
     [username]="username"
 >
