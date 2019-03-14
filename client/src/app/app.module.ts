@@ -4,19 +4,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http'
 
 import { AppComponent } from './app.component';
-import { PostsPageComponent } from './posts-page/posts-page.component';
-import { UsersPageComponent } from './users-page/users-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginModalComponent } from './login-modal/login-modal.component';
 import { NavbarComponent } from './navbar/navbar.component';
 
 const appRoutes = [{
-  path: 'posts',
-  component: PostsPageComponent
-}, {
-  path: 'users',
-  component: UsersPageComponent
-}, {
   path: '',
   component: HomePageComponent
 }];
@@ -24,8 +16,6 @@ const appRoutes = [{
 @NgModule({
   declarations: [
     AppComponent,
-    PostsPageComponent,
-    UsersPageComponent,
     HomePageComponent,
     LoginModalComponent,
     NavbarComponent
