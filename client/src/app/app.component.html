@@ -6,4 +6,4 @@
     [user]="user"
 >
 </app-navbar>
-<router-outlet style="display: none"></router-outlet>
+<router-outlet style="display: none" (activate)="routerActivate($event)"></router-outlet>

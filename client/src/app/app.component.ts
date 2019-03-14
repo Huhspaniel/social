@@ -12,20 +12,32 @@ export class AppComponent {
   constructor (private http: HttpClient, private api: ApiService) {}
 
   title = 'app';
-  loggedIn: boolean = false;
-  user: {
-    username: string,
-    id: number
-  } | null
+  state: any = {
+    user: {},
+    loggedIn: false
+  }
+  setState = (state) => {
+    for (const prop in state) {
+      this.state[prop] = state[prop];
+    }
+  }
 
   loginState = ({ username, id, token }): void => {
-    this.loggedIn = true;
-    this.user = { username, id }
+    // this.loggedIn = true;
+    // this.user = { username, id }
+    this.setState({
+      loggedIn: true,
+      user: { username, id }
+    })
     sessionStorage.setItem('token', token);
   }
   logoutState = (): void => {
-    this.loggedIn = false;
-    this.user = null;
+    // this.loggedIn = false;
+    // this.user = null;
+    this.setState({
+      loggedIn: false,
+      user: {}
+    })
     sessionStorage.clear();
   }
   login = (auth): Promise<any> => {
@@ -38,6 +50,10 @@ export class AppComponent {
     return this.api.post('users', data)
       .then(() => this.login(data))
       .then(this.loginState)
+  }
+
+  routerActivate(component) {
+    component.appState = this.state;
   }
 
   ngOnInit() {
