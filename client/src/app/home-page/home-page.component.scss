@@ -1,0 +1,38 @@
+@import "../../sass/vars";
+
+:host(app-home-page) {
+    display: grid;
+}
+
+.feed {
+    justify-self: center;
+    background-color: #fefefe;
+    border-radius: 5px;
+    box-shadow: 0 0 1px black;
+
+    height: max-content;
+    width: 100vw;
+    max-width: 700px;
+    // padding: 10px;
+    margin: 30px;
+    .post {
+        h3 {
+            margin: 0;
+            padding: 7px;
+            display: grid;
+            grid-template-columns: 1fr min-content;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+        }
+        a {
+            font-size: 14px;
+            align-self: center;
+            :visited {
+                color: initial;
+            }
+        }
+        .content {
+            font-size: 14px;
+            padding: 15px;
+        }
+    }
+}

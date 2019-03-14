@@ -1,9 +1,10 @@
 @import "../../sass/mixins";
+@import "../../sass/vars";
 
 :host(app-navbar) {
     width: 100%;
     color: white;
-    background-color: #004f52;
+    background-color: $primary-color;
     box-shadow: 0 0 5px black;
     display: grid;
     grid-template-columns: auto 1fr;
@@ -22,7 +23,6 @@ nav {
         cursor: pointer;
         margin: 0 20px;
         &:hover {
-            // background-color: lighten(#004f52, 5%);
             text-shadow: 0 0 3px white;
         }
     }

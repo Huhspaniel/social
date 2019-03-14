@@ -1,4 +1,5 @@
 @import "../../sass/mixins";
+@import "../../sass/vars";
 
 :host(app-login-modal) {
     position: fixed;
@@ -29,20 +30,20 @@
     box-shadow: 0 0 1px black;
     .toggle-modal {
         cursor: pointer;
-        color: lighten(#004f52, 5%);
+        color: lighten($primary-color, 7%);
         font-size: 14px;
         text-decoration: underline;
         text-align: center;
         padding-bottom: 10px;
         &:hover {
-            color: darken(#004f52, 0%);
-            text-shadow: 0 0 2px lighten(#004f52, 70%);
+            color: $primary-color;
+            text-shadow: 0 0 2px lighten($primary-color, 70%);
         }
     }
 }
 
 header {
-    background-color: #004f52;
+    background-color: $primary-color;
     color: white;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;

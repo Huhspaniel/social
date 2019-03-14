@@ -1,6 +1,6 @@
 <div class="feed" *ngIf="feed && feed[0]">
     <div class="post" *ngFor="let post of feed">
-        <h3><span>@{{ post.user.username }} </span>{{ post.title }}</h3>
+        <h3>{{ post.title }}<a href="#">@{{ post.user.username }}</a></h3>
         <div class="content">{{ post.content }}</div>
     </div>
 </div>
