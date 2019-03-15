@@ -1,7 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import "./vars";
 
 body {
     margin: 0;
     font-family: 'Open Sans', sans-serif;
+}
+
+a {
+    color: lighten($primary-color, 20%);
+    &:hover {
+        color: lighten($primary-color, 17%);
+        text-shadow: 0 0 1px lighten($primary-color, 70%);
+    }
 }

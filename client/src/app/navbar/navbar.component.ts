@@ -8,7 +8,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 export class NavbarComponent implements OnInit {
 
-  modalState: string = 'hidden';
   constructor() { }
 
   @Input() loggedIn: boolean;
@@ -16,9 +15,8 @@ export class NavbarComponent implements OnInit {
   @Input() signup: Function;
   @Input() login: Function;
   @Input() logout: Function;
-  setModal = (status: string): void => {
-    this.modalState = status;
-  }
+  @Input() modalState: string;
+  @Input() setModal: Function;
 
   ngOnInit() {
   }

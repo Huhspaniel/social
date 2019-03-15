@@ -12,11 +12,12 @@ export class AppComponent {
   constructor (private http: HttpClient, private api: ApiService) {}
 
   title = 'app';
-  loggedIn: boolean = false;
   user: {
     username: string,
     id: number
-  } | null
+  } | {} = {};
+  loggedIn: boolean = false;
+  modalState: string = 'hidden';
 
   loginState = ({ username, id, token }): void => {
     this.loggedIn = true;
@@ -39,6 +40,11 @@ export class AppComponent {
       .then(() => this.login(data))
       .then(this.loginState)
   }
+
+  setModal = (status: string): void => {
+    this.modalState = status;
+  }
+
 
   ngOnInit() {
     const token = sessionStorage.getItem('token');

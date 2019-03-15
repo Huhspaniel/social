@@ -1,0 +1,109 @@
+@import "../../sass/vars";
+
+:host(app-home-page) {
+    display: grid;
+}
+
+.posts {
+    justify-self: center;
+    background-color: #fefefe;
+    border-radius: 5px;
+    box-shadow: 0 0 1px black;
+
+    height: max-content;
+    width: 100vw;
+    max-width: 700px;
+    margin: 30px;
+    .post {
+        display: grid;
+        grid-template: auto auto / 80px 1fr;
+        grid-template-areas:
+            "votes title"
+            "votes content";
+        .votes {
+            background-color: #f9f9f9;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-right: 1px solid rgba(0, 0, 0, 0.4);
+            grid-area: votes;
+            padding: 10px;
+            display: grid;
+            grid-template: auto / 1fr auto;
+            grid-gap: 2px;
+            justify-items: center;
+            align-items: center;
+            $up-color: lighten($primary-color, 30%);
+            $down-color: rgb(249, 86, 86);
+            .score {
+                font-size: 18px;
+                &.up {
+                    color: $up-color;
+                }
+                &.down {
+                    color: $down-color;
+                }
+            }
+            .vote-btns {
+                font-size: 28px;
+                display: grid;
+                grid-template: auto auto / auto;
+                color: rgba(0, 0, 0, 0.5);
+                i {
+                    cursor: pointer;
+                    border-radius: 2px;
+                    padding: 3px;
+                    &:hover {
+                        background-color: darken(#f9f9f9, 5%);
+                    }
+                    &:active {
+                        background-color: darken(#f9f9f9, 8%);
+                    }
+                }
+                .far {
+                    &:hover {
+                        &.vote-up {
+                            text-shadow: 0 0 1px rgba($up-color, 0.4);
+                        }
+                        &.vote-down {
+                            text-shadow: 0 0 1px rgba($down-color, 0.4);
+                        }
+                    }
+                }
+                .fas {
+                    &.vote-up {
+                        color: $up-color;
+                        &:hover {
+                            text-shadow: 0 0 1px rgba(black, 0.5);
+                        }
+                    }
+                    &.vote-down {
+                        color: $down-color;
+                        &:hover {
+                            text-shadow: 0 0 1px rgba(black, 0.5);
+                        }
+                    }
+                }
+            }
+        }
+        h3 {
+            grid-area: title;
+            margin: 0;
+            padding: 7px;
+            display: grid;
+            grid-template-columns: 1fr min-content;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+            a {
+                font-size: 14px;
+                align-self: center;
+                :visited {
+                    color: initial;
+                }
+            }
+        }
+        .content {
+            grid-area: content;
+            font-size: 14px;
+            padding: 15px;
+        }
+    }
+}
