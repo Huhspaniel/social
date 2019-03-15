@@ -5,7 +5,7 @@
     position: fixed;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.4);
     color: black;
 
     transition: opacity ease-in-out .1s;
@@ -27,7 +27,7 @@
 
     background-color: white;
     border-radius: 10px;
-    box-shadow: 0 0 1px black;
+    box-shadow: 0 0 2px black;
     .toggle-modal {
         cursor: pointer;
         color: lighten($primary-color, 7%);
