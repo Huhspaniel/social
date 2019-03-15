@@ -12,32 +12,21 @@ export class AppComponent {
   constructor (private http: HttpClient, private api: ApiService) {}
 
   title = 'app';
-  state: any = {
-    user: {},
-    loggedIn: false
-  }
-  setState = (state) => {
-    for (const prop in state) {
-      this.state[prop] = state[prop];
-    }
-  }
+  user: {
+    username: string,
+    id: number
+  } | {} = {};
+  loggedIn: boolean = false;
+  modalState: string = 'hidden';
 
   loginState = ({ username, id, token }): void => {
-    // this.loggedIn = true;
-    // this.user = { username, id }
-    this.setState({
-      loggedIn: true,
-      user: { username, id }
-    })
+    this.loggedIn = true;
+    this.user = { username, id }
     sessionStorage.setItem('token', token);
   }
   logoutState = (): void => {
-    // this.loggedIn = false;
-    // this.user = null;
-    this.setState({
-      loggedIn: false,
-      user: {}
-    })
+    this.loggedIn = false;
+    this.user = null;
     sessionStorage.clear();
   }
   login = (auth): Promise<any> => {
@@ -52,9 +41,10 @@ export class AppComponent {
       .then(this.loginState)
   }
 
-  routerActivate(component) {
-    component.appState = this.state;
+  setModal = (status: string): void => {
+    this.modalState = status;
   }
+
 
   ngOnInit() {
     const token = sessionStorage.getItem('token');

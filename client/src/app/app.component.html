@@ -1,9 +1,6 @@
-<app-navbar
-    [signup]="signup"
-    [login]="login"
-    [logout]="logout"
-    [loggedIn]="state.loggedIn"
-    [user]="state.user"
->
+<app-navbar [signup]="signup" [login]="login" [logout]="logout" [loggedIn]="loggedIn" [user]="user"
+    [modalState]="modalState" [setModal]="setModal">
 </app-navbar>
-<router-outlet style="display: none" (activate)="routerActivate($event)"></router-outlet>
+<app-home-page [user]="user" [loggedIn]="loggedIn" [modalState]="modalState" [setModal]="setModal">
+</app-home-page>
+<!-- <router-outlet style="display: none"></router-outlet> -->

@@ -16,7 +16,7 @@
     margin: 30px;
     .post {
         display: grid;
-        grid-template: auto auto / 100px 1fr;
+        grid-template: auto auto / 80px 1fr;
         grid-template-areas:
             "votes title"
             "votes content";
@@ -47,10 +47,17 @@
                 font-size: 28px;
                 display: grid;
                 grid-template: auto auto / auto;
-                grid-gap: 5px;
                 color: rgba(0, 0, 0, 0.5);
                 i {
                     cursor: pointer;
+                    border-radius: 2px;
+                    padding: 3px;
+                    &:hover {
+                        background-color: darken(#f9f9f9, 5%);
+                    }
+                    &:active {
+                        background-color: darken(#f9f9f9, 8%);
+                    }
                 }
                 .far {
                     &:hover {
