@@ -22,25 +22,15 @@
         "content-label content submit";
     overflow: scroll;
     input, textarea {
-        padding: 5px;
+        @include input-text;
         margin: 5px;
-        font-size: 14px;
-        border-radius: 4px;
-        max-width: 100%;
         &[name=title] {
             grid-area: title;
         }
         &[name=content] {
             grid-area: content;
             resize: vertical;
-            border-width: 2px;
-            border-style: inset;
             min-height: 50px;
-        }
-        transition: box-shadow ease-out .1s;
-        &:focus {
-            outline: none;
-            box-shadow: 0 0 3px black;
         }
     }
     label {
