@@ -34,6 +34,7 @@
             align-items: center;
             $up-color: lighten($primary-color, 30%);
             $down-color: rgb(249, 86, 86);
+            color: rgba(0, 0, 0, 0.5);
             .score {
                 font-size: 18px;
                 &.up {
@@ -47,7 +48,6 @@
                 font-size: 28px;
                 display: grid;
                 grid-template: auto auto / auto;
-                color: rgba(0, 0, 0, 0.5);
                 i {
                     cursor: pointer;
                     border-radius: 2px;

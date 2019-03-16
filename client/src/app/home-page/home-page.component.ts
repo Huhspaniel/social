@@ -9,7 +9,9 @@ import { ApiService } from '../api.service';
 
 export class HomePageComponent implements OnInit {
 
-  posts: Array<any>;
+  posts: Array<any> = [];
+  scores: Array<number> = [];
+  userVotes: Array<number> = [];
   constructor(private api: ApiService) { }
 
   @Input() user: {
@@ -20,22 +22,21 @@ export class HomePageComponent implements OnInit {
   @Input() modalState: string;
   @Input() setModal: Function;
 
-  parsePosts = posts => posts.map(post => {
-    const data = post.votes.reduce((data, { val, user_id }) => {
-      data.score += val;
-      if (user_id === this.user.id) data.userVote = val;
-      return data;
-    }, { score: 0, userVote: 0 });
-    post.score = data.score;
-    post.userVote = data.userVote;
-    return post;
-  })
+  getScore = post => post.votes.reduce((score, { val }) => score += val, 0);
+  getUserVote = post => {
+    for (let i = 0; i < post.votes.length; i++) {
+      if (post.votes[i].user_id === this.user.id) {
+        return post.votes[i].val;
+      }
+    }
+    return 0;
+  }
 
   async refreshPosts() {
     try {
-      const posts = await this.api.get('posts');
-      console.log(posts);
-      this.posts = this.parsePosts(posts);
+      this.posts = await this.api.get('posts');
+      this.scores = this.posts.map(this.getScore);
+      this.userVotes = this.posts.map(this.getUserVote);
     } catch (err) {
       console.error(err);
     }
@@ -45,26 +46,31 @@ export class HomePageComponent implements OnInit {
     if (!this.loggedIn) {
       return this.setModal('login');
     }
-    const post = this.posts[postIndex];
-    if (this.posts[postIndex].userVote === val) {
-      post.score -= val;
-      post.userVote = val = 0;
+    if (this.userVotes[postIndex] === val) {
+      this.scores[postIndex] -= val;
+      this.userVotes[postIndex] = val = 0;
     } else {
-      post.score += val - post.userVote;
-      post.userVote = val;
+      this.scores[postIndex] += val - this.userVotes[postIndex];
+      this.userVotes[postIndex] = val;
     }
     this.api.post('votes', {
       post_id: this.posts[postIndex].id, val
     }).then(data => {
       if (data[0].val !== val) {
-        post.userVote = data[0].val;
-        post.score -= val - data[0].val;
+        this.userVotes[postIndex] = data[0].val;
+        this.scores[postIndex] -= val - data[0].val;
       }
     })
   }
 
   ngOnInit() {
     this.refreshPosts();
+  }
+
+  ngOnChanges(changes) {
+    if (changes.loggedIn) {
+      this.userVotes = this.loggedIn ? this.posts.map(this.getUserVote) : [];
+    }
   }
 
 }
