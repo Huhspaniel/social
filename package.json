@@ -1,6 +1,6 @@
 {
   "name": "social",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Social networking application built using AWS, PostgreSQL, Node.js, Express, and Angular",
   "main": "index.js",
   "scripts": {
