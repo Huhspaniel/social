@@ -24,3 +24,16 @@
         color: lighten(#00b4ba, 2%)
     }
 }
+
+@mixin input-text {
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 5px;
+    transition: box-shadow ease-out .2s;
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 3px black;
+    }
+    border-width: 2px;
+    border-style: inset;
+}

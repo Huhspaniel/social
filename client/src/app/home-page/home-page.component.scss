@@ -1,25 +1,80 @@
 @import "../../sass/vars";
-
+@import "../../sass/mixins";
 :host(app-home-page) {
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.posts {
-    justify-self: center;
+.post-form {
+    box-sizing: border-box;
     background-color: #fefefe;
     border-radius: 5px;
     box-shadow: 0 0 1px black;
+    width: 100vw;
+    max-width: 700px;
+    margin: 30px 0 0;
+    padding: 10px;
+    display: grid;
+    grid-template: auto auto / min-content 1fr min-content;
+    grid-template-areas:
+        "title-label title submit"
+        "content-label content submit";
+    overflow: scroll;
+    input, textarea {
+        @include input-text;
+        margin: 5px;
+        &[name=title] {
+            grid-area: title;
+        }
+        &[name=content] {
+            grid-area: content;
+            resize: vertical;
+            min-height: 50px;
+        }
+    }
+    label {
+        align-self: center;
+        text-align: center;
+        margin: 2px;
+        &[for=title] {
+            grid-area: title-label;
+        }
+        &[for=content] {
+            grid-area: content-label;
+        }
+    }
+    input[type=submit] {
+        @include button;
+        grid-area: submit;
+        align-self: center;
+        justify-self: center;
+        &:hover {
+            box-shadow: 0 0 3px black;
+        }
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 5px black;
+        }
+    }
+}
 
+.posts {
+    box-sizing: border-box;
     height: max-content;
     width: 100vw;
     max-width: 700px;
     margin: 30px;
+    display: grid;
+    grid-template: auto / auto;
+    grid-gap: 10px;
     .post {
+        background-color: #fefefe;
+        border-radius: 5px;
+        box-shadow: 0 0 1px black;
         display: grid;
         grid-template: auto auto / 80px 1fr;
-        grid-template-areas:
-            "votes title"
-            "votes content";
+        grid-template-areas: "votes title" "votes content";
         .votes {
             background-color: #f9f9f9;
             border-top-left-radius: 5px;
@@ -89,11 +144,11 @@
             grid-area: title;
             margin: 0;
             padding: 7px;
-            display: grid;
-            grid-template-columns: 1fr min-content;
+            display: flex;
             border-bottom: 1px solid rgba(0, 0, 0, 0.4);
             a {
-                font-size: 14px;
+                text-decoration: none;
+                font-size: 13px;
                 padding: 0 4px;
                 align-self: center;
                 :visited {

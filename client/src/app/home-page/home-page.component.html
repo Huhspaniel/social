@@ -1,3 +1,10 @@
+<form *ngIf="loggedIn" class="post-form" (submit)="handleSubmit($event)" autocomplete="off">
+    <label for="title">Title:</label>
+    <input type="text" name="title">
+    <label for="content">Content:</label>
+    <textarea name="content"></textarea>
+    <input type="submit" value="POST">
+</form>
 <div class="posts" *ngIf="posts && posts[0]">
     <div class="post" *ngFor="let post of posts; index as i;">
         <div class="votes">
@@ -9,7 +16,7 @@
                 (click)="handleVote(i, -1)"></i>
             </div>
         </div>
-        <h3>{{ post.title }}<a href="#">@{{ post.user.username }}</a></h3>
+        <h3>{{ post.title }}<a href="#"> ~ @{{ post.user.username }}</a></h3>
         <div class="content">{{ post.content }}</div>
     </div>
 </div>
