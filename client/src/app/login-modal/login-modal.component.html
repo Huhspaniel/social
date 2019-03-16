@@ -5,7 +5,7 @@
   <form method="post" (submit)="handleSubmit($event)">
     <label *ngIf="modalState === 'signup'">Email:</label>
     <input *ngIf="modalState === 'signup'" type="text" name="email">
-    <label *ngIf="modalState === 'signup'">Name</label>
+    <label *ngIf="modalState === 'signup'">Name:</label>
     <input *ngIf="modalState === 'signup'" type="text" name="name">
     <label>Username:</label>
     <input type="text" name="username">
