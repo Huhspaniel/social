@@ -133,8 +133,16 @@ module.exports = function (app) {
         .post(authJwt, async (req, res) => {
             try {
                 const dbRes = await db.posts.create(req.body);
+                const post = await db.posts.findByPk(dbRes.id, {
+                    include: [{
+                        model: db.users,
+                        attributes: ['id', 'firstname', 'lastname', 'username', ['created_at', 'joinDate']]
+                    }, {
+                        model: db.votes
+                    }]
+                })
 
-                res.json(dbRes);
+                res.json(post);
             } catch (err) {
                 res.status(400).json(err);
             }

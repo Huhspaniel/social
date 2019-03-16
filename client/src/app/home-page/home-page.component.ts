@@ -77,18 +77,11 @@ export class HomePageComponent implements OnInit {
         input['value'] = '';
       }
     });
-
-    const post = {
-      title: body['title'],
-      content: body['content'],
-      user: this.user
-    }
-    this.posts = prepend(post, this.posts);
-    this.scores = prepend(0, this.scores);
-    this.userVotes = prepend(0, this.userVotes);
     this.api.post('posts', body)
-      .then(_post => {
-        Object.assign(post, _post);
+      .then(post => {
+        this.posts = prepend(post, this.posts);
+        this.scores = prepend(0, this.scores);
+        this.userVotes = prepend(0, this.userVotes);
       })
       .catch(err => console.error(err));
   }
