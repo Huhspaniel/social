@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from '../api.service';
+import { prepend } from 'ramda';
 
 @Component({
   selector: 'app-home-page',
@@ -61,6 +62,35 @@ export class HomePageComponent implements OnInit {
         this.scores[postIndex] -= val - data[0].val;
       }
     })
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const body = Array.from(e.target).reduce((acc, { name: key, value }) => {
+      if (key) {
+        acc[key] = value;
+      }
+      return acc;
+    }, {});
+    Array.from(e.target).forEach(input => {
+      if (input['type'] !== 'submit') {
+        input['value'] = '';
+      }
+    });
+
+    const post = {
+      title: body['title'],
+      content: body['content'],
+      user: this.user
+    }
+    this.posts = prepend(post, this.posts);
+    this.scores = prepend(0, this.scores);
+    this.userVotes = prepend(0, this.userVotes);
+    this.api.post('posts', body)
+      .then(_post => {
+        Object.assign(post, _post);
+      })
+      .catch(err => console.error(err));
   }
 
   ngOnInit() {

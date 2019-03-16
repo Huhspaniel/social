@@ -1,4 +1,4 @@
-<form (submit)="handleSubmit($event)">
+<form *ngIf="loggedIn" class="post-form" (submit)="handleSubmit($event)" autocomplete="off">
     <label for="title">Title:</label>
     <input type="text" name="title">
     <label for="content">Content:</label>
@@ -16,7 +16,7 @@
                 (click)="handleVote(i, -1)"></i>
             </div>
         </div>
-        <h3>{{ post.title }}<a href="#">@{{ post.user.username }}</a></h3>
+        <h3>{{ post.title }}<a href="#"> ~ @{{ post.user.username }}</a></h3>
         <div class="content">{{ post.content }}</div>
     </div>
 </div>

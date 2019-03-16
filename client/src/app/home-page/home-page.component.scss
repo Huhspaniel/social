@@ -6,7 +6,7 @@
     align-items: center;
 }
 
-form {
+.post-form {
     box-sizing: border-box;
     background-color: #fefefe;
     border-radius: 5px;
@@ -35,6 +35,7 @@ form {
             resize: vertical;
             border-width: 2px;
             border-style: inset;
+            min-height: 50px;
         }
         transition: box-shadow ease-out .1s;
         &:focus {
@@ -70,14 +71,17 @@ form {
 
 .posts {
     box-sizing: border-box;
-    background-color: #fefefe;
-    border-radius: 5px;
-    box-shadow: 0 0 1px black;
     height: max-content;
     width: 100vw;
     max-width: 700px;
     margin: 30px;
+    display: grid;
+    grid-template: auto / auto;
+    grid-gap: 10px;
     .post {
+        background-color: #fefefe;
+        border-radius: 5px;
+        box-shadow: 0 0 1px black;
         display: grid;
         grid-template: auto auto / 80px 1fr;
         grid-template-areas: "votes title" "votes content";
@@ -150,11 +154,11 @@ form {
             grid-area: title;
             margin: 0;
             padding: 7px;
-            display: grid;
-            grid-template-columns: 1fr min-content;
+            display: flex;
             border-bottom: 1px solid rgba(0, 0, 0, 0.4);
             a {
-                font-size: 14px;
+                text-decoration: none;
+                font-size: 13px;
                 padding: 0 4px;
                 align-self: center;
                 :visited {
