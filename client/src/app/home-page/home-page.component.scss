@@ -1,15 +1,78 @@
 @import "../../sass/vars";
-
+@import "../../sass/mixins";
 :host(app-home-page) {
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.posts {
-    justify-self: center;
+form {
+    box-sizing: border-box;
     background-color: #fefefe;
     border-radius: 5px;
     box-shadow: 0 0 1px black;
+    width: 100vw;
+    max-width: 700px;
+    margin: 30px 0 0;
+    padding: 10px;
+    display: grid;
+    grid-template: auto auto / min-content 1fr min-content;
+    grid-template-areas:
+        "title-label title submit"
+        "content-label content submit";
+    overflow: scroll;
+    input, textarea {
+        padding: 5px;
+        margin: 5px;
+        font-size: 14px;
+        border-radius: 4px;
+        max-width: 100%;
+        &[name=title] {
+            grid-area: title;
+        }
+        &[name=content] {
+            grid-area: content;
+            resize: vertical;
+            border-width: 2px;
+            border-style: inset;
+        }
+        transition: box-shadow ease-out .1s;
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 3px black;
+        }
+    }
+    label {
+        align-self: center;
+        text-align: center;
+        margin: 2px;
+        &[for=title] {
+            grid-area: title-label;
+        }
+        &[for=content] {
+            grid-area: content-label;
+        }
+    }
+    input[type=submit] {
+        @include button;
+        grid-area: submit;
+        align-self: center;
+        justify-self: center;
+        &:hover {
+            box-shadow: 0 0 3px black;
+        }
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 5px black;
+        }
+    }
+}
 
+.posts {
+    box-sizing: border-box;
+    background-color: #fefefe;
+    border-radius: 5px;
+    box-shadow: 0 0 1px black;
     height: max-content;
     width: 100vw;
     max-width: 700px;
@@ -17,9 +80,7 @@
     .post {
         display: grid;
         grid-template: auto auto / 80px 1fr;
-        grid-template-areas:
-            "votes title"
-            "votes content";
+        grid-template-areas: "votes title" "votes content";
         .votes {
             background-color: #f9f9f9;
             border-top-left-radius: 5px;
